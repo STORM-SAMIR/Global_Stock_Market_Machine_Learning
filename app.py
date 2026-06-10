@@ -53,7 +53,9 @@ st.markdown("---")
 def load_data():
     # Dataset must be in the same folder as app.py
     # Upload 'Global_Stock_Market_Master_Dataset.xlsx' to your GitHub repo root
-    df = pd.read_excel('Global_Stock_Market_Master_Dataset.xlsx', header=2)
+    # NEW — works everywhere
+DATA_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                         'Global_Stock_Market_Master_Dataset.xlsx')
     df.columns = ['Date', 'Country', 'Company', 'Sector', 'Sub_Sector',
                   'Open', 'High', 'Low', 'Close', 'Volume',
                   'BUY', 'SELL', 'Daily_Return', 'War_Period']
