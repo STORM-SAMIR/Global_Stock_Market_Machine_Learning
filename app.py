@@ -15,6 +15,7 @@
 import warnings
 warnings.filterwarnings('ignore')
 
+import os
 import pandas as pd
 import numpy as np
 import streamlit as st
@@ -49,13 +50,12 @@ st.markdown("**Dataset:** 90,040 Records | 200 Companies | 10 Countries | Jan 20
 st.markdown("---")
 
 # ── LOAD & CACHE DATASET ─────────────────────────────────────────────────────
+# Build absolute path — works locally AND on Streamlit Cloud
+DATA_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'Global_Stock_Market_Master_Dataset.xlsx')
+
 @st.cache_data
 def load_data():
-    # Dataset must be in the same folder as app.py
-    # Upload 'Global_Stock_Market_Master_Dataset.xlsx' to your GitHub repo root
-    # NEW — works everywhere
-DATA_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                         'Global_Stock_Market_Master_Dataset.xlsx')
+    df = pd.read_excel(DATA_PATH, header=2)
     df.columns = ['Date', 'Country', 'Company', 'Sector', 'Sub_Sector',
                   'Open', 'High', 'Low', 'Close', 'Volume',
                   'BUY', 'SELL', 'Daily_Return', 'War_Period']
